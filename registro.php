@@ -1,7 +1,7 @@
 <?php
 	//conexion con la base de datos y el servidor
-	$link = mysqli_connect("fdb19.125mb.com","3387047_indicon","indiconiot2020") or die("<h2>No se encuentra el servidor</h2>");
-	$db = mysqli_select_db($link,"3387047_indicon") or die("<h2>Error de Conexion</h2>");
+	$link = mysqli_connect("fdb19.125mb.com","3387047_chefcito","iotchefcito2021") or die("<h2>No se encuentra el servidor</h2>");
+	$db = mysqli_select_db($link,"3387047_chefcito") or die("<h2>Error de Conexion</h2>");
 
 	//obtenemos los valores del formulario
 	$Usuario = $_POST['Usuario'];
