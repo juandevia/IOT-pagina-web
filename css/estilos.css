@@ -1,0 +1,33 @@
+header{
+    background-color: #212121;
+    min-height: 80px;
+    padding-top: 15px;
+    overflow:hidden;
+    border-bottom: #B7905A 4px solid;
+}
+.contenedor-flex-1{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    width:80%;
+    margin: auto;
+
+}
+.contenedor-flex-1 ul{
+    display:flex;
+    justify-content: flex-end;
+    align-items: center;
+
+}
+.contenedor-flex-1 li{
+    list-style-type: none;
+    padding-right: 20px;
+}
+
+.contenedor-flex-1 li a{
+    text-decoration: none;
+    color:white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.7em;
+    font-weight: bold;
+}
