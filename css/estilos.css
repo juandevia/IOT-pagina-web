@@ -7,8 +7,8 @@ header{
 }
 .contenedor-flex-1{
     display:flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content:space-between;
+    align-items:center;
     width:80%;
     margin: auto;
 
@@ -28,6 +28,38 @@ header{
     text-decoration: none;
     color:white;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.7em;
+    font-size: 1.em;
     font-weight: bold;
+}
+
+#banner{
+    min-height: 500px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url('../img/banner.jpg');
+    
+}
+#banner h1{
+    font-size: 4.0em;
+    color: white;
+    font-weight: normal;
+    margin-top: 0%;
+    margin-bottom: 10px;
+    padding: 80px;
+    transform: scale(1,1.1);
+}
+
+.ancho-contenido-banner{
+
+    width: 90%;
+    margin: auto;
+    overflow: hidden;
+
+
+}
+
+.ancho-contenido-banner p{
+    color:white;
+    font-size: 1.3em;
+
 }
