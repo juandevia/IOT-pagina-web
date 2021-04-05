@@ -34,7 +34,7 @@ header{
 
 #banner{
     min-height: 500px;
-    text-align: center;
+    text-align: left;
     font-family: Arial, Helvetica, sans-serif;
     background-image: url('../img/banner.jpg');
     
@@ -63,3 +63,97 @@ header{
     font-size: 1.3em;
 
 }
+
+.cuota{
+    background-color: #212121;
+    height:120px;
+    padding: 10px;
+    color:white;
+    font-style:italic;
+    font-family: palatino,georgia,serif;
+    display:flex;
+    align-items:center;
+    justify-content:wrap;
+    align-items:center; 
+    justify-content: center;
+    flex-wrap:wrap;
+    }
+
+.cuota span{
+    font-size:2.0em;
+    padding-right: 20px;
+
+}
+.cuota a{
+    text-decoration: none;
+    font-family: Helvetica,Arial, sans-serif;
+    color:white;
+    font-size:1.6em;
+    background-color: #B7905A;
+    border-radius:16px;
+    padding: 5px 12px 5px 12px;
+}
+
+.contenedor-flex-2{
+    display:flex;
+    justify-content:center;
+}
+
+.contenedor-flex-2 div{
+    text-align: center;
+    font-size:1.6em;
+    font-family:Helvetica,Arial;sans-serif;
+    padding:20px;
+    margin:10px;
+}
+
+footer{
+    text-align:center;
+    font-size:1.7em;
+    border-top: #B7905A 3px solid;
+    min-height:80px;
+    padding-top: 25px;
+}
+
+.contenedor-flex-3{
+    display:flex;
+    justify-content:center;
+}
+
+.contenedor-flex-3 div{
+    text-align: center;
+    font-size:1em;
+    font-family:Helvetica,Arial;sans-serif;
+    padding:20px;
+    margin:10px;
+}
+
+
+#banner2{
+    min-height: 500px;
+    text-align: right;
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url('../img/banner2.jpg');
+    
+}
+#banner2 h1{
+    font-size: 4.0em;
+    color: #B7905A;
+    font-weight: normal;
+    margin-top: 0%;
+    margin-bottom: 10px;
+    padding: 80px;
+    transform: scale(1,1.1);
+    }
+
+
+#banner2 p{
+    font-size: 1.6em;
+    text-align:right;
+    color: white;
+    padding-left:1050px;
+    padding-right:90px;
+    font-weight: normal;
+    transform: scale(1,1.1);
+    }
+
