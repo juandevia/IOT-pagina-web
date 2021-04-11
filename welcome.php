@@ -1,6 +1,6 @@
 <?php
 // Basado en https://www.tutorialrepublic.com/php-tutorial/php-mysql-login-system.php
-// Se inicializa la sesion
+// Inicializa una nueva sesión o identifica la sesión actual
 session_start();
  
 // Se verifica si el usuario esta logeado, si no, se redirecciona al pagina de login

@@ -6,7 +6,7 @@ define('DB_USERNAME', '3387047_chefcito');
 define('DB_PASSWORD', 'iotchefcito2021');
 define('DB_NAME', '3387047_chefcito');
 
-// Se conecta con la base de datos, retorna un objeto contenedor con la informacion necesaria para conectarse
+// Se conecta con la base de datos, retorna un objeto contenedor con la informacion de la conexión
 $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
  
 // Si la conexión no es posible con la base de datos

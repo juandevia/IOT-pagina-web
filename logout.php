@@ -1,9 +1,9 @@
 <?php
 // Basado en https://www.tutorialrepublic.com/php-tutorial/php-mysql-login-system.php
-// Inicializa la sesion
+// Inicializa una nueva sesión o identifica la sesión actual
 session_start();
  
-// Se limpian todas las variables de la sesion
+// Se limpian todas las variables de la sesion con un nuevo arreglo vacío
 $_SESSION = array();
  
 // Se destruye la sesion.

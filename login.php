@@ -1,6 +1,6 @@
 <?php
 // Basado en https://www.tutorialrepublic.com/php-tutorial/php-mysql-login-system.php
-// Inicializa la sesion
+// Inicializa una nueva sesión o identifica la sesión actual
 session_start();
  
 // Se valida si el usuario ya esta loggeado
@@ -16,7 +16,7 @@ define('DB_USERNAME', '3387047_chefcito');
 define('DB_PASSWORD', 'iotchefcito2021');
 define('DB_NAME', '3387047_chefcito');
 
-// Se conecta con la base de datos, retorna un objeto contenedor con la informacion necesaria para conectarse
+// Se conecta con la base de datos, retorna un objeto contenedor con la informacion de la conexión
 $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
  
 // Si la conexión no es posible con la base de datos
@@ -38,14 +38,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty(trim($_POST["username"]))){
         $username_err = "Por favor ingrese un Nombre de Usuario.";
     } else{
-        $username = trim($_POST["username"]);
+        $username = trim($_POST["username"]); // variable $username toma valor 'username' dado en el metodo POST
     }
     
-    // Se valida si la password esta vacia
+    // Se valida si la contraseña dada en el formulario esta vacia
     if(empty(trim($_POST["password"]))){
         $password_err = "Por favor ingrese su contraseña.";
     } else{
-        $password = trim($_POST["password"]);
+        $password = trim($_POST["password"]); // variable $password toma valor 'password' dado en el metodo POST
     }
     
     // Si los datos ingresados en el formulario no están vacios
