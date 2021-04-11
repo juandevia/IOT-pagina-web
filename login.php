@@ -3,8 +3,9 @@
 // Inicializa la sesion
 session_start();
  
-// Se valida si el usuario ya esta loggeado, en caso dado, se redirecciona a la pagina de bienvenida
+// Se valida si el usuario ya esta loggeado
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+    // Si sí, se redirecciona a la pagina de bienvenida
     header("location: welcome.php");
     exit;
 }
@@ -15,22 +16,25 @@ define('DB_USERNAME', '3387047_chefcito');
 define('DB_PASSWORD', 'iotchefcito2021');
 define('DB_NAME', '3387047_chefcito');
 
-/* Se conecta con la base de datos */
+// Se conecta con la base de datos, retorna un objeto contenedor con la informacion necesaria para conectarse
 $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
  
-// Validar la conexión de base de datos
+// Si la conexión no es posible con la base de datos
 if($link === false){
-    die("ERROR: Could not connect to database server. " . mysqli_connect_error());
+    die("ERROR: No se pudo conectar con la base de datos " . mysqli_connect_error());
 }
 
 // Se define las variables y se inicializan con valores vacios
-$username = $password = "";
-$username_err = $password_err = $login_err = "";
+$username = "";
+$password = "";
+$username_err = "";
+$password_err = "";
+$login_err = "";
  
-// Se procesan los datos ingresamos cuando el formulrio es ingresado
+// Se pregunta si ya se envió el formulario en el script html
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
-    // Se valida si el username esta vacio
+    // Una vez se envía el formulario al script php, se valida si el nombre de usuario está vacío
     if(empty(trim($_POST["username"]))){
         $username_err = "Por favor ingrese un Nombre de Usuario.";
     } else{
@@ -44,13 +48,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $password = trim($_POST["password"]);
     }
     
-    // Se validan las credenciales
+    // Si los datos ingresados en el formulario no están vacios
     if(empty($username_err) && empty($password_err)){
+
         // Prepare un estado de seleccion
         $sql = "SELECT id, username, password FROM Usuarios WHERE username = ?";
         
+        // Se prepara la ejecucion de el estado de selección solicitado
         if($stmt = mysqli_prepare($link, $sql)){
-            // Vincular variables al estado seleccionado como parametros
+
+            // Si sí se puede realizar la ejecución de la lectura de datos solicitado:
+            // Se une el parametro $param_username a las variables del statement "stmt"
             mysqli_stmt_bind_param($stmt, "s", $param_username);
             
             // Se establecen los parametros
@@ -58,23 +66,27 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             
             // Intento de ejecutar el estado seleccionado
             if(mysqli_stmt_execute($stmt)){
-                // Se guarda el resultado
+
+                // Se guarda el resultado como tabla de estados en en la variable 'stmt'
                 mysqli_stmt_store_result($stmt);
                 
-                // Se verifica si el username existe, si si, se verifica la password
-                if(mysqli_stmt_num_rows($stmt) == 1){                    
-                    // Se vinculan las variables de los resultados
+                // Si la tabla de resultados tiene una sola fila, quiere decir que el nombre de usuario ya existe
+                if(mysqli_stmt_num_rows($stmt) == 1){   
+
+                    // Se vinculan los parámetros $id, $username, $hashed_password a los resultados en la tabla de estados "stmt"
                     mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
+
+                    // Se extraen los resultados del estado de selección preparado
                     if(mysqli_stmt_fetch($stmt)){
+                        // Si sí se pudieron extraer correctamente:
+                        // Se verifica si la contraseña es correcta
                         if(password_verify($password, $hashed_password)){
                             // Si la contraseña es correcta, se inicia una nueva sesion
                             session_start();
-                            
-                            // Se guardan los datos en las variables de la sesion
+                            // Se guardan los datos en las variables de la nueva sesión
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
                             $_SESSION["username"] = $username;                            
-                            
                             // Se redirecciona el usuario a la pagina de bienvenida
                             header("location: welcome.php");
                         } else{
@@ -132,6 +144,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </nav>
     </header>
     
+    <!-- Clase para crear el formulario de inicio de sesión -->
     <div class="wrapper">
         <h2>Login</h2>
         <p>Por favor ingrese sus datos para Iniciar Sesión.</p>
@@ -142,6 +155,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }        
         ?>
 
+        <!-- Se crea el formulario para ser enviado a al codigo php -->
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
                 <label>Usuario</label>
