@@ -154,6 +154,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             echo '<div class="alert alert-danger">' . $login_err . '</div>';
         }        
         ?>
+        
+    </div>
 
         <!-- Se crea el formulario para ser enviado a al codigo php -->
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
@@ -170,9 +172,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Iniciar Sesión">
             </div>
-            <p>¿Aun no estás registrado? <a href="registro.php">Registrate</a>.</p>
+            
+            
+            <section class="cuota">
+            <span>¿Aun no estás registrado?</span> 
+            <a href="registro.php">Registrate</a>
+            </section>
+        
         </form>
-    </div>
+        
+    
     
     <!--El pie de pagina -->
     <footer>
@@ -180,4 +189,5 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </footer>
     
 </body>
+
 </html>

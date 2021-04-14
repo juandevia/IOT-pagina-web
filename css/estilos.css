@@ -156,7 +156,7 @@ footer{
     font-weight: normal;
     transform: scale(1,1.1);
     }
-
+    
 .banner3{
     min-height: 750px;
     text-align: left;
@@ -173,3 +173,75 @@ footer{
     padding: 50px;
     transform: scale(1,1.1);
     }
+    
+.wrap{
+    width: 90%;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.nav > li {
+    float:left;
+}
+
+.nav li a {
+    background-color:#212121;
+    color:#fff;
+    text-decoration:none;
+    padding:10px 12px;
+    display:block;
+}
+
+.nav li a:hover {
+    background-color:#000;
+}
+
+.nav li ul {
+    display:none;
+    position:absolute;
+    min-width:140px;
+}
+
+.nav li:hover > ul {
+    display:block;
+}
+
+.nav li ul li {
+    position:relative;
+}
+
+.nav li ul li ul {
+    right:-140px;
+    top:0px;
+}
+
+
+.form-group{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width:20%;
+    margin: auto;
+    padding-bottom:8px;
+}
+.form-group label{
+    text-decoration: none;
+    font-family: Helvetica,Arial, sans-serif;
+    color:white;
+    font-size:1.6em;
+    background-color: #B7905A;
+    border-radius:16px;
+    padding: 5px 12px 5px 12px;
+    margin:auto;
+ 
+}
+
+
+
+.wrapper{
+    display:center;
+    justify-content: center;
+    align-items: center;
+ }
+    
+    

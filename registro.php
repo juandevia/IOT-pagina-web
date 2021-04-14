@@ -21,6 +21,7 @@ $confirm_password = "";
 $username_err = "";
 $password_err = "";
 $confirm_password_err = "";
+
  
 // Se pregunta si ya se envió el formulario en el script html
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -75,7 +76,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else{ // Se guarda la contraseña en la variable 'password'
         $password = trim($_POST["password"]);
     }
-    
     // Se valida si sí se ingresó una contraseña a partir de la entrada 'confirm_password' dada en el metodo 'POST'
     if(empty(trim($_POST["confirm_password"]))){
         $confirm_password_err = "Por favor confirme la contraseña.";     
@@ -85,6 +85,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $confirm_password_err = "Las contraseñas no coinciden.";
         }
     }
+
     
     // Si nunca se necesitaron de las variables auxilaires de error, es porque los datos están bien
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
@@ -100,7 +101,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             
             $param_username = $username; // Se establece el $param_username de acuerdo a la variabel $username
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Se crea un hash para la cifrar la variable $password, el resultado se guarda en $param_password
-            
+
             // Se intenta ejecutar el estado de inserción solicitado
             if(mysqli_stmt_execute($stmt)){
                 // Si la ejecución es correcta, entonces se escribieron los datos en la base de datos
@@ -122,6 +123,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
  
 <!DOCTYPE html>
 <html lang="es">
+
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -133,6 +136,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         .wrapper{ width: 350px; padding: 20px; }
     </style>
 </head>
+
+
 <body>
 
      <!-- Encabezado de la pagina -->
@@ -145,17 +150,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <ul><!--lista no ordenanda con los enlaces-->
                 <li><a href="index.html">Inicio </a></li>
                 <li><a href="nosotrosl.html">Nosotros</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="contacto.html">Proyecto</a></li>
                 <li><a href="login.php">Inicia Sesión</a></li>
-
             </ul>
         </nav>
+
+
     </header>
 
     <!-- Clase para crear el formulario de registro -->
     <div class="wrapper">
         <h2>Registro de Usuario</h2>
         <p>Por favor llene este formulario para crear un usuario.</p>
+    </div>
         <!-- Se crea el formulario para ser enviado a al codigo php -->
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
@@ -173,14 +180,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
                 <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
             </div>
+
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Enviar">
                 <input type="reset" class="btn btn-secondary ml-2" value="Reset">
             </div>
-            <p>¿Ya tienes una cuenta? <a href="login.php">Inicia Sesión</a>.</p>
+            
+            <section class="cuota">
+            <span>¿Ya tienes una cuenta? </span>
+            <a href="login.php">Inicia Sesión</a>
+            </section>
         </form>
-    </div>
-    
+ 
     <!--El pie de pagina -->
     <footer>
         <div> CHEFCITO corporation &copy; Todos los derechos reservados</div>

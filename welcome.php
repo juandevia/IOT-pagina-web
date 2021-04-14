@@ -28,12 +28,17 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <a href="index.html">
                 <img src= "img/logo.png" alt="logo" width="250" height="100">
             </a>
-            <ul><!--lista no ordenanda con los enlaces-->
+            <ul class="nav"><!--lista no ordenanda con los enlaces-->
                 <li><a href="index.html">Inicio </a></li>
                 <li><a href="nosotrosl.html">Nosotros</a></li>
                 <li><a href="contacto.html">Contacto</a></li>
-                <li><a href="reset_password.php">Cambia Contraseña</a></li>
-                <li><a href="logout.php">Cerrar Sesión</a></li>
+                <li><a href="">Sesión</a>
+                    <ul>
+                        <li><a href="reset_password.php">Cambia Contraseña</a></li>
+                        <li><a href="data.php">Datos usuario</a></li>
+                        <li><a href="logout.php">Cerrar Sesión</a></li> 
+                    </ul>
+                </li>
             </ul>
         </nav>
     </header>
