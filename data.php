@@ -116,8 +116,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <ul class="nav"><!--lista no ordenanda con los enlaces-->
                 <li><a href="index.html">Inicio </a></li>
                 <li><a href="nosotrosl.html">Nosotros</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
-                <li><a href="">Sesión</a>
+                <li><a href="contacto.html">Proyecto</a></li>
+                <li><a href="welcome.php">Sesión</a>
                     <ul>
                         <li><a href="reset_password.php">Cambiar contraseña</a></li>
                         <li><a href="data.php">Datos usuario</a></li>
@@ -130,8 +130,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     <!-- Clase para crear el formulario de registro de datos -->
     <div class="wrapper">
-        <h2>Registro de datos del usuario</h2>
-        <p>Por favor llene este formulario.</p>
+        <h2>Por favor llena tus datos personales:</h2>
+        <p></p>
 
         <?php 
         if(!empty($login_err)){
