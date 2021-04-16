@@ -31,7 +31,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <ul class="nav"><!--lista no ordenanda con los enlaces-->
                 <li><a href="index.html">Inicio </a></li>
                 <li><a href="nosotrosl.html">Nosotros</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="contacto.html">Proyecto</a></li>
                 <li><a href="">Sesión</a>
                     <ul>
                         <li><a href="reset_password.php">Cambia Contraseña</a></li>
@@ -42,8 +42,14 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             </ul>
         </nav>
     </header>
-    
+    <div align = "center">
     <h1 class="my-5">Hola, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Bienvenido a nuestro sitio.</h1>
+    </div>
+    <section>
+     <div align ="center">
+            <img src="img/chefcito.gif"  padding="10%">
+        </div>
+     </section>
   
     <!--El pie de pagina -->
     <footer>
