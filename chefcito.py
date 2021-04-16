@@ -63,11 +63,10 @@ channelID = "1357298"
 # Clave de escritura de la API del canal de ThingSpeak
 writeAPIKey = "G8HYAAXDN3CTKU5B"
 
-# Comunicacion utilizando TLS (SSl actualmente) para encriptar los datos
-# transmitidos usando un websocket seguro en el puerto por defecto 443
+# Comunicacion utilizando websocket en el puerto por defecto 80
 tTransport = "websockets"
 tPort = 80 #443
-#tTLS = {"ca_certs":"/etc/ssl/certs/ca-certificates.crt","tls_version":ssl.PROTOCOL_TLSv1}
+#tTLS = {"ca_certs":"/etc/ssl/certs/ca-certificates.crt","tls_version":ssl.PROTOCOL_TLSv1} # Comunicacion utilizando TLS (protocolo SSl) para encriptar los datos
 tTLS = None
 
 # Topic para publicar en el Broker
