@@ -12,7 +12,7 @@ Algoritmo:
         -   segmentación de objetos en la fotografía
         -   clasificación de objetos en la fotografía
         -   conteo de alimentos
-        -   calculo de calorias (proporcional a la cantidad de cada alimento)
+        -   calculo de calorias (proporcional a la cantidad de cada alimento y reconoce alimentos pegados)
         -   envio de datos:
                 {kCal totales, # Aguacates, # Bananos, # Huevos, # Manzanas, # Salchichas, # Hora y fecha (nombre del archivo de la imagen)}
 
