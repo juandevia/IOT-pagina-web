@@ -105,45 +105,54 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </head>
 <body>
 
-     <!-- Encabezado de la pagina-->
-     <header>
+    <!-- Encabezado de la pagina-->
+    <header>
         <nav class="contenedor-flex-1">
 
             <a href="index.html">
                 <img src= "img/logo.png" alt="logo" width="250" height="100">
             </a>
-            <ul><!--lista no ordenanda con los enlaces-->
+            <ul class="nav"><!--lista no ordenanda con los enlaces-->
                 <li><a href="index.html">Inicio </a></li>
                 <li><a href="nosotrosl.html">Nosotros</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
-                <li><a href="logout.php">Cerrar Sesión</a></li>
+                <li><a href="contacto.html">Proyecto</a></li>
+                <li><a href="welcome.php">Sesión</a>
+                    <ul>
+                        <li><a href="reset_password.php">Cambiar contraseña</a></li>
+                        <li><a href="data.php">Datos usuario</a></li>
+                        <li><a href="logout.php">Cerrar Sesión</a></li> 
+                    </ul>
+                </li>
             </ul>
         </nav>
     </header>
 
     <!-- Clase para crear el formulario de reestablecimiento de contraseña -->
-    <div class="wrapper">
-        <h2>Cambiar Contraseña</h2>
-        <p>Por favor llene el siguiente formulario para reestablecer la contraseña.</p>
-        <!-- Se crea el formulario para ser enviado a al codigo php -->
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"> 
-            <div class="form-group">
-                <label>Nueva Contraseña</label>
-                <input type="password" name="new_password" class="form-control <?php echo (!empty($new_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $new_password; ?>">
-                <span class="invalid-feedback"><?php echo $new_password_err; ?></span>
+    <div class= "form-group">
+            <div class="wrapper">
+                <div class="form-group">
+                    <h2>   </h2>
+                </div>
+                <!-- Se crea el formulario para ser enviado a al codigo php -->
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"> 
+                    <div class="form-group">
+                        <label>Nueva Contraseña</label>
+                        <input type="password" name="new_password" class="form-control <?php echo (!empty($new_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $new_password; ?>">
+                        <span class="invalid-feedback"><?php echo $new_password_err; ?></span>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirmar Contraseña</label>
+                        <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>">
+                        <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Enviar">
+                        <a class="btn btn-link ml-2" href="welcome.php">Cancelar</a>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label>Confirmar Contraseña</label>
-                <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>">
-                <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Enviar">
-                <a class="btn btn-link ml-2" href="welcome.php">Cancelar</a>
-            </div>
-        </form>
-    </div>
-    
+     </div>
+            
         <!--El pie de pagina -->
     <footer>
         <div> CHEFCITO corporation &copy; Todos los derechos reservados</div>
