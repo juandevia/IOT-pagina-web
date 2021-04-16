@@ -16,9 +16,11 @@ if($link === false){
 
 // Se definen las variables y se inicializan con valores vacios
 $username = "";
+$email = "";
 $password = "";
 $confirm_password = "";
 $username_err = "";
+$email_err ="";
 $password_err = "";
 $confirm_password_err = "";
 
@@ -67,7 +69,47 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             mysqli_stmt_close($stmt);
         }
     }
-    
+    // Una vez se envía el formulario al script php, se valida si el email está vacío
+    if(empty(trim($_POST["email"]))){
+        $email_err = "Por favor ingrese un correo.";
+
+    } else{
+        
+        // Se prepara un estado de selección de datos de la base de datos, retorna una tabla de estado con los datos obtenidos
+        $sql = "SELECT id FROM Usuarios WHERE email = ?";
+        
+        // Se prepara la ejecucion de el estado de selección solicitado
+        if($stmt = mysqli_prepare($link, $sql)){
+
+            // Si sí se puede realizar la ejecución de la lectura de datos solicitado:
+            // Se une el parametro $param_username a las variables del statement "stmt"
+            mysqli_stmt_bind_param($stmt, "s", $param_email);
+            
+            // Los parametros se establecen a partir de la entrada 'username' dada en el metodo 'POST'
+            $param_email = trim($_POST["email"]);
+            
+            // Se intenta ejecutar el estado de selección solicitado
+            if(mysqli_stmt_execute($stmt)){
+
+                // Se guardan los datos obtenidos de la base de datos
+                mysqli_stmt_store_result($stmt);
+                
+                // Si la tabla de resultados tiene una sola fila, quiere decir que el nombre de usuario ya existe
+                if(mysqli_stmt_num_rows($stmt) == 1){
+                    $email_err = "Este correo ya fue registrado.";
+                } else{
+                    // Si la tabla de la base de datos no tiene el 'username' dato, se almacena en la variable 'username'
+                    $email = trim($_POST["email"]);
+                }
+            // No se pudo ejecutar el estado de inserción
+            } else{
+                echo "Ahhhh! Errores. Por favor intente mas tarde.";
+            }
+
+            // Se cierra la tabla de estados de la solicitud
+            mysqli_stmt_close($stmt);
+        }
+    }
     // Se valida si sí se ingresó una contraseña a partir de la entrada 'password' dada en el metodo 'POST'
     if(empty(trim($_POST["password"]))){
         $password_err = "Por favor ingrese una contraseña.";     
@@ -91,17 +133,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
         
         // Se prepara un estado de inserción de datos en la base de datos
-        $sql = "INSERT INTO Usuarios (username, password) VALUES (?, ?)";
+        $sql = "INSERT INTO Usuarios (username, email, password) VALUES (?, ?, ?)";
          
         // Se prepara la ejecucion de el estado de inserción solicitado   
         if($stmt = mysqli_prepare($link, $sql)){
         
             // Se unen los parametros $param_username, $param_password a las variables del statement "stmt"
-            mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
+            mysqli_stmt_bind_param($stmt, "sss", $param_username, $param_email, $param_password);
             
             $param_username = $username; // Se establece el $param_username de acuerdo a la variabel $username
+            $param_email = $email;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Se crea un hash para la cifrar la variable $password, el resultado se guarda en $param_password
-
+            
             // Se intenta ejecutar el estado de inserción solicitado
             if(mysqli_stmt_execute($stmt)){
                 // Si la ejecución es correcta, entonces se escribieron los datos en la base de datos
@@ -159,9 +202,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </header>
 
     <!-- Clase para crear el formulario de registro -->
-    <div class="wrapper">
+    <div class="form-group">
         <h2>Registro de Usuario</h2>
-        <p>Por favor llene este formulario para crear un usuario.</p>
     </div>
         <!-- Se crea el formulario para ser enviado a al codigo php -->
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
@@ -170,6 +212,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
                 <span class="invalid-feedback"><?php echo $username_err; ?></span>
             </div>   
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="text" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
+                <span class="invalid-feedback"><?php echo $email_err; ?></span>
+            </div> 
+
             <div class="form-group">
                 <label>Contraseña</label>
                 <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">

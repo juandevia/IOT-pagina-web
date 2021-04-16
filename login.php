@@ -137,7 +137,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <ul><!--lista no ordenanda con los enlaces-->
                 <li><a href="index.html">Inicio </a></li>
                 <li><a href="nosotrosl.html">Nosotros</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="contacto.html">Proyecto</a></li>
                 <li><a href="login.php">Inicia Sesión</a></li>
 
             </ul>
@@ -145,9 +145,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </header>
     
     <!-- Clase para crear el formulario de inicio de sesión -->
-    <div class="wrapper">
-        <h2>Login</h2>
-        <p>Por favor ingrese sus datos para Iniciar Sesión.</p>
 
         <?php 
         if(!empty($login_err)){
@@ -155,10 +152,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }        
         ?>
         
-    </div>
+    
 
         <!-- Se crea el formulario para ser enviado a al codigo php -->
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    
+            <div class="form-group">
+                <h2>Login</h2>
+            </div>
             <div class="form-group">
                 <label>Usuario</label>
                 <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
@@ -172,7 +173,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Iniciar Sesión">
             </div>
-            
             
             <section class="cuota">
             <span>¿Aun no estás registrado?</span> 
