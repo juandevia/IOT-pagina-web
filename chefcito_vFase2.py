@@ -10,6 +10,22 @@ import multiprocessing
 import paho.mqtt.publish as publish
 import ssl
 
+'''
+Chefcito - versión fase 2
+
+Algoritmo:
+    - Se abre la cámara de video:
+        -   captura del frame de video:
+        -   identificacion de objetos en el primer plano de la fotografía
+        -   segmentación de objetos en la fotografía (alimentos no se deben tocar)
+        -   clasificación de objetos en la fotografía
+        -   conteo de alimentos
+        -   calculo de calorias
+        -   envio de datos:
+                {kCal totales, # Aguacates, # Bananos, # Huevos, # Manzanas, # Salchichas, # Hora y fecha (nombre del archivo de la imagen)}
+
+'''
+
 # Se crea una funcion para clasificar cada contorno en un proceso aislado, esto con el fin de que el sistema mate el proceso
 # externo una vez se haya realizado la inferencia, eliminando de la memoria las variables alojadas como tensores del modelo
 def modelo_inferencia(roi, out):
