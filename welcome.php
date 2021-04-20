@@ -42,15 +42,23 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             </ul>
         </nav>
     </header>
+
     <div align = "center">
-    <h1 class="my-5">Hola, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Bienvenido a nuestro sitio.</h1>
+        <h1 class="my-5">Hola, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Bienvenido a nuestro sitio.</h1>
     </div>
+    
     <section>
-     <div align ="center">
+        <div align ="center">
             <img src="img/chefcito.gif"  padding="10%">
         </div>
      </section>
-  
+
+    <form action="http://api.thingspeak.com/update?key=CELL2W7CXZIZ6DV9&field1=1" method="post">
+        <div align = "center">
+            <button type="submit" formtarget="_blank">Tomar Foto en la Raspberry</button>
+        </div>   
+    </form>
+
     <!--El pie de pagina -->
     <footer>
         <div> CHEFCITO corporation &copy; Todos los derechos reservados</div>
