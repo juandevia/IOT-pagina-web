@@ -13,18 +13,23 @@ import requests
 import json
 
 '''
-Chefcito - versión fase 2
+Chefcito RELOAD (⌐■_■) - versión fase 3
 
 Algoritmo:
-    - Se abre la cámara de video:
-        -   captura del frame de video:
-        -   identificacion de objetos en el primer plano de la fotografía
-        -   segmentación de objetos en la fotografía (alimentos no se deben tocar)
-        -   clasificación de objetos en la fotografía
-        -   conteo de alimentos
-        -   calculo de calorias
-        -   envio de datos:
-                {kCal totales, # Aguacates, # Bananos, # Huevos, # Manzanas, # Salchichas, # Hora y fecha (nombre del archivo de la imagen)}
+ 
+        -¿Se solicita capturar una fotografía?
+            
+            - No -> esperar
+            
+            - Si ->:
+                -   captura del frame de video:
+                -   identificacion del plato con los alimentos
+                -   segmentación de alimentos (alimentos no se deben tocar)
+                -   clasificación de alimentos
+                -   conteo de alimentos
+                -   calculo de calorias
+                -   envio de datos:
+                        {kCal totales, # Aguacates, # Bananos, # Huevos, # Manzanas, # Salchichas, # Hora y fecha (nombre del archivo de la imagen)}
 '''
 
 '''------------------------------ FUNCIONES ----------------------------------------------------'''
