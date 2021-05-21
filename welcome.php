@@ -49,7 +49,24 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     
     <section>
         <div align ="center">
-            <img src="img/chefcito.gif"  padding="10%">
+            <table border=2 bordercolor="#0000FF">
+            <tr><td colspan="2">
+            <h1 align="center" color="#00FFFF">Dashboard</h1>
+            </td></tr>
+            <tr><td>
+            <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/apps/matlab_visualizations/402723"></iframe>
+            </td>
+            <td><iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/apps/matlab_visualizations/402669"></iframe>
+            </td></tr>
+            <tr><td>
+            <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/apps/matlab_visualizations/402717"></iframe>
+            </td>
+            <td><iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/apps/matlab_visualizations/402665"></iframe>
+            </td></tr>
+            <tr><td>
+            <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/apps/matlab_visualizations/402728"></iframe>
+            </td></tr>
+            </table>
         </div>
      </section>
 
