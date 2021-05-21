@@ -1,31 +1,19 @@
-<?php
-// Basado en https://www.tutorialrepublic.com/php-tutorial/php-mysql-login-system.php
-// Inicializa una nueva sesión o identifica la sesión actual
-session_start();
- 
-// Se verifica si el usuario esta logeado, si no, se redirecciona al pagina de login
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login.php");
-    exit;
-}
-?>
- 
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenido</title>
+    <title>Nosotros</title>
     <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-
     <!-- Encabezado de la pagina-->
+   
     <header>
         <nav class="contenedor-flex-1">
 
-            <a href="index.html">
+            <a href="index_2.html">
                 <img src= "img/logo.png" alt="logo" width="250" height="100">
             </a>
             <ul class="nav"><!--lista no ordenanda con los enlaces-->
@@ -42,23 +30,43 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             </ul>
         </nav>
     </header>
-
-    <div align = "center">
-        <h1 class="my-5">Hola, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Bienvenido a nuestro sitio.</h1>
-    </div>
-    
-    <section>
-        <div align ="center">
-            <img src="img/chefcito.gif"  padding="10%">
+          <!--banner-->
+    <section class="banner">
+        <div class="banner_section">
+            <img class="banner_img" src="img/banner4.jpg">
         </div>
-     </section>
+    
+    </section>
 
-    <form action="http://api.thingspeak.com/update?key=CELL2W7CXZIZ6DV9&field1=1" method="post">
-        <div align = "center">
-            <button type="submit" formtarget="_blank">Tomar Foto en la Raspberry</button>
-        </div>   
-    </form>
+        <!--mas informacion-->
+    <section class="cuota">
+        <span>¿Quieres saber más? :</span>
+        <a href="contacto.html">Aprende como funciona Chefcito</a>
+    </section>
 
+ 
+
+     <section class= "contenedor-flex-3">
+        <div>
+            <img src="img/jei.png" alt="Jeimmy" width="150" height="210">
+            <h2> Jeimmy Cuitiva Mont</h2>
+        </div>
+
+        <div>
+            <img src="img/pipo.png" alt="Felipe" width="150" height="210">
+            <h2> Juan Felipe Jaramillo</h2>
+        </div>
+
+        <div>
+            <img src="img/JuanCamilo.png" alt="Juan" width="150" height="210">
+            <h2>Juan Camilo Devia </h2>
+        </div>
+    </section>
+
+
+
+
+   
     <!--El pie de pagina -->
     <footer>
         <div> CHEFCITO corporation &copy; Todos los derechos reservados</div>
