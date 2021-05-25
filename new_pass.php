@@ -1,13 +1,4 @@
 <?php
-// Inicializa una nueva sesión o identifica la sesión actual
-session_start();
- 
-// Se verifica si el usuario esta logeado
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    //  Si no está logeado, se redirecciona a la pagina de inicio de sesión
-    header("location: login.php");
-    exit;
-}
  
 // Credenciales para conectar a la base de datos.
 define('DB_SERVER', 'fdb19.125mb.com');
