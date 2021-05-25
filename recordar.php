@@ -1,14 +1,6 @@
 <?php
 
-session_start();
  
-// Se valida si el usuario ya esta loggeado
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    // Si sí, se redirecciona a la pagina de bienvenida
-    header("location: welcome.php");
-    exit;
-}
-
 // Credenciales para conectar a la base de datos.
 define('DB_SERVER', 'fdb19.125mb.com');
 define('DB_USERNAME', '3387047_chefcito');
@@ -22,10 +14,12 @@ $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 if($link === false){
     die("ERROR: No se pudo conectar con la base de datos " . mysqli_connect_error());
 }
-
+// zona horaria 
+date_default_timezone_set('America/Bogota');
 // Se define las variables y se inicializan con valores vacios
 $email = "";
 $email_err = "";
+
  
 // Se pregunta si ya se envió el formulario en el script html
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -49,14 +43,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             if(mysqli_stmt_execute($stmt)){
                 // Se guardan los datos obtenidos de la base de datos
                 mysqli_stmt_store_result($stmt);
-                 // Si la tabla de resultados tiene una sola fila, por lo ue es posible enviar un correo para reestablecer contra
+                 // Si la tabla de resultados tiene una sola fila, es posible enviar un correo para reestablecer contra
                 if(mysqli_stmt_num_rows($stmt) == 1){
-                    
-                
-                
-                
-                
-                    $email = trim($_POST["email"]);
+                    $subject = "Reestablece tu contraseña";
+                    $body ='<p>Hola </p>';
+                    $body .='<p>Da click en el siguiente enlace para cambiar tu contraseña, si no has sido tu, por favor ignora este correo.
+                    <a href="https://chefcito.125mb.com/newpass.php/">nueva_contraseña</a>.</p>';
+                    mail($email, $subject, $message);
                     
                 } else{
                     // Si la tabla de la base de datos no tiene el 'email' dato, no se reestablece nada
