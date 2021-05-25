@@ -22,7 +22,7 @@ $email_err = "";
 $token ="";
 $url = ""; 
 $asunto = ""; 
-"cuerpo = ""; 
+$cuerpo = ""; 
 
  
 // Se pregunta si ya se envió el formulario en el script html
@@ -52,18 +52,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                  // Si la tabla de resultados tiene una sola fila, es posible enviar un correo para reestablecer contra
                 if(mysqli_stmt_num_rows($stmt) == 1){
 
-                 
-                   $url = 'http://'. $_SERVER["SERVER_NAME"].'/new_pass.php?id='.$sql.'val='.$id;
+                   $sql = "SELECT id FROM Usuarios WHERE email = ?";
+                   mysqli_stmt_bind_param($stmt,"s", $param_id);
+                   $url = 'http://'. $_SERVER["SERVER_NAME"].'/login/new_pass.php?id='.$sql.'val='.$id;
                   
                    $asunto = 'Cambiar contraseña';
                    $cuerpo = "Hola, <br /><br  /> Para continuar con el proceso de cambio de contraseña, da click en 
-                   el siguiente <a href='$url'> enlace</a>";
+                   el siguiente <a href='$url'> enlace.</a>";
                    
                    if(enviarEmail($email,$asunto,$cuerpo)){
-                       echo "Le hemos enviado un correo para que restablezca su contraseña";
+                       echo "Le hemos enviado un correo para que restablezca su contraseña.";
                        exit;
                    } else {
-                       $email_err = "Error al enviar correo";
+                       $email_err = "Error al enviar correo.";
                    }
  
                     
@@ -83,10 +84,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 ?>
 
 <?php 
-    require 'PHPMailer/PHPMailerAutoload.php'; 
 
     function enviarEmail($email,$asunto,$cuerpo){
-       $mail = new PHPMailer(); 
+       use PHPMailer\PHPMailer\PHPMailer;
+       use PHPMailer\PHPMailer\Exception;
+       require_once 'PHPMailer/PHPMailerAutoload.php'; 
+     
+       $mail = new PHPMailer(true); 
        $mail -> isSMTP(); 
        $mail -> SMTPSecure = 'tls';
        $mail -> Host = 'smtp.gmail.com';
