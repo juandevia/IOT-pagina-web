@@ -19,6 +19,10 @@ date_default_timezone_set('America/Bogota');
 // Se define las variables y se inicializan con valores vacios
 $email = "";
 $email_err = "";
+$token ="";
+$url = ""; 
+$asunto = ""; 
+"cuerpo = ""; 
 
  
 // Se pregunta si ya se envió el formulario en el script html
@@ -29,6 +33,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $email_err = "Por favor ingrese un correo.";
     } else{
         // Se prepara un estado de selección de datos de la base de datos, retorna una tabla de estado con los datos obtenidos
+
+     
         $sql = "SELECT id FROM Usuarios WHERE email = ?"; 
         
         // Se prepara la ejecucion de el estado de selección solicitado
@@ -45,11 +51,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 mysqli_stmt_store_result($stmt);
                  // Si la tabla de resultados tiene una sola fila, es posible enviar un correo para reestablecer contra
                 if(mysqli_stmt_num_rows($stmt) == 1){
-                    $subject = "Reestablece tu contraseña";
-                    $body ='<p>Hola </p>';
-                    $body .='<p>Da click en el siguiente enlace para cambiar tu contraseña, si no has sido tu, por favor ignora este correo.
-                    <a href="https://chefcito.125mb.com/newpass.php/">nueva_contraseña</a>.</p>';
-                    mail($email, $subject, $message);
+
+                 
+                   $url = 'http://'. $_SERVER["SERVER_NAME"].'/new_pass.php?id='.$sql.'val='.$id;
+                  
+                   $asunto = 'Cambiar contraseña';
+                   $cuerpo = "Hola, <br /><br  /> Para continuar con el proceso de cambio de contraseña, da click en 
+                   el siguiente <a href='$url'> enlace</a>";
+                   
+                   if(enviarEmail($email,$asunto,$cuerpo)){
+                       echo "Le hemos enviado un correo para que restablezca su contraseña";
+                       exit;
+                   } else {
+                       $email_err = "Error al enviar correo";
+                   }
+ 
                     
                 } else{
                     // Si la tabla de la base de datos no tiene el 'email' dato, no se reestablece nada
@@ -64,6 +80,34 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     } 
 }
+?>
+
+<?php 
+    require 'PHPMailer/PHPMailerAutoload.php'; 
+
+    function enviarEmail($email,$asunto,$cuerpo){
+       $mail = new PHPMailer(); 
+       $mail -> isSMTP(); 
+       $mail -> SMTPSecure = 'tls';
+       $mail -> Host = 'smtp.gmail.com';
+       $mail -> Port = '587'; 
+       
+       $mail -> Username = 'chefcitojjj@gmail.com';
+       $mail -> Password = 'chefcito2021';
+       
+       $mail -> setFrom('chefcitojjj@gmail.com', 'Recuperación contraseña');
+       $mail ->addAddress('$email'); 
+       
+       $mail ->Subject = $asunto;
+       $mail ->Body = $cuerpo; 
+       $mail ->IsHTML(true);
+       
+       if($mail->send())
+       return true;
+       else 
+       return false;
+       
+ }
 ?>
 
 <!DOCTYPE html>
