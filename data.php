@@ -30,6 +30,8 @@ $height = "";
 $usergender_err = "";
 $weight_err = "";
 $height_err = "";
+$age = ""; 
+$age_err = "";
 
 // Se pregunta si ya se envió el formulario en el script html
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -55,27 +57,48 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $height = trim($_POST["height"]); // Se guarda la altura en la variable 'height'
     }
     
+    // Se valida si sí se ingresó una edad a partir de la entrada 'height' dada en el metodo 'POST'
+    if(empty(trim($_POST["age"]))){
+        $age_err = "Por favor ingrese su edad.";     
+    } else{
+        $age = trim($_POST["age"]); // Se guarda la altura en la variable 'age'
+    }
+
+
     // Si nunca se necesitaron de las variables auxilaires de error, es porque los datos están bien
-    if(empty($usergender_err) && empty($weight_err) && empty($height_err)){
+    if(empty($usergender_err) && empty($weight_err) && empty($height_err) && empty($age_err)){
         
         // Se prepara un estado de inserción de datos en la base de datos
-        $sql = "UPDATE Usuarios SET usergender = ?, weight = ?, height = ? WHERE id = ?";
+        $sql = "UPDATE Usuarios SET usergender = ?, weight = ?, height = ?, age = ? WHERE id = ?";
          
         // Se prepara la ejecucion de el estado de inserción solicitado   
         if($stmt = mysqli_prepare($link, $sql)){
         
             // Se unen los parametros $param_usergender, $param_weight, $param_height a las variables del statement "stmt"
-            mysqli_stmt_bind_param($stmt, "siii", $param_usergender, $param_weight, $param_height, $param_id);
+            mysqli_stmt_bind_param($stmt, "siiii", $param_usergender, $param_weight, $param_height, $param_age, $param_id);
             
             $param_id = $_SESSION["id"];  
             $param_usergender = $usergender; // Se establece el $param_usergender de acuerdo a la variabel $usergender
             $param_weight = $weight; //  el resultado se guarda en $param_weight
             $param_height = $height; //  el resultado se guarda en $param_height
+            $param_age = $age; // el resultado se guarda en $param_age
 
             // Se intenta ejecutar el estado de inserción solicitado
             if(mysqli_stmt_execute($stmt)){
                 // Si la ejecución es correcta, entonces se escribieron los datos en la base de datos
-                header("location: welcome.php"); // Se redirecciona a la pagina de user
+                //header("location: data.php"); // Se redirecciona a la pagina de user
+                
+                
+                if($parama_usergender == 'Femenino'){
+                   $BMR = ((10 * $param_weight) + (6.25 * $param_height) - (5 * $param_age) + 5) * 1.2;  
+                } else{
+                   $BMR = ((10 * $param_weight) + (6.25 * $param_height) - (5 * $param_age) -161) * 1.2;
+                }
+ 
+ 
+                
+                
+                
             } else{
                 // No se pudo ejecutar el estado de inserción
                 echo "Ahhhh! Errores. Por favor intente mas tarde.";
@@ -369,6 +392,137 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <name="height" class="form-control <?php echo (!empty($height_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $height; ?>">
                 <span class="invalid-feedback"><?php echo $height_err; ?></span>
             </div>
+            
+            <div class="form-group">
+                <label>Age</label>
+
+                <select name="age">
+                        <option value=""></option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+
+                        <option value="12">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="26">25</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
+                        <option value="32">32</option>
+                        <option value="33">33</option>
+
+                        <option value="34">34</option>
+                        <option value="35">35</option>
+                        <option value="36">36</option>
+                        <option value="37">37</option>
+                        <option value="38">38</option>
+                        <option value="39">39</option>
+
+
+                        <option value="40">40</option>
+                        <option value="41">41</option>
+                        <option value="42">42</option>
+                        <option value="43">43</option>
+                        <option value="44">44</option>
+                        <option value="45">45</option>
+                        <option value="46">46</option>
+                        <option value="47">47</option>
+                        <option value="48">48</option>
+                        <option value="49">49</option>
+                        <option value="50">50</option>
+
+                        <option value="51">51</option>
+                        <option value="52">52</option>
+                        <option value="53">53</option>
+                        <option value="54">54</option>
+                        <option value="55">55</option>
+                        <option value="56">56</option>
+                        <option value="57">57</option>
+                        <option value="58">58</option>
+                        <option value="59">59</option>
+                        <option value="60">60</option>
+
+                        <option value="61">61</option>
+                        <option value="62">62</option>
+                        <option value="63">63</option>
+                        <option value="64">64</option>
+                        <option value="65">65</option>
+                        <option value="66">66</option>
+                        <option value="67">67</option>
+                        <option value="68">68</option>
+                        <option value="69">69</option>
+                        <option value="70">70</option>
+
+                        
+                        <option value="71">71</option>
+                        <option value="72">72</option>
+                        <option value="73">73</option>
+                        <option value="74">74</option>
+                        <option value="75">75</option>
+                        <option value="76">76</option>
+                        <option value="77">77</option>
+                        <option value="78">78</option>
+                        <option value="79">79</option>
+                        <option value="80">80</option>
+
+                       
+                        <option value="81">81</option>
+                        <option value="82">82</option>
+                        <option value="83">83</option>
+                        <option value="84">84</option>
+                        <option value="85">85</option>
+                        <option value="86">86</option>
+                        <option value="87">87</option>
+                        <option value="88">88</option>
+                        <option value="89">89</option>
+                        <option value="90">90</option>
+
+                      
+                        <option value="91">91</option>
+                        <option value="92">92</option>
+                        <option value="93">93</option>
+                        <option value="94">94</option>
+                        <option value="95">95</option>
+                        <option value="96">96</option>
+                        <option value="97">97</option>
+                        <option value="98">98</option>
+                        <option value="99">99</option>
+                        <option value="100">100</option>              
+                  </select>
+
+
+                <name="age" class="form-control <?php echo (!empty($age_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $age; ?>">
+                <span class="invalid-feedback"><?php echo $age_err; ?></span>
+            </div>
+            
+            <div> 
+                <h1 class="my-5">Tu BMR es: <b><?php echo htmlspecialchars($BMR); ?></b></h1>
+                
+            </div> 
+
+            
+            
             
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Enviar">
