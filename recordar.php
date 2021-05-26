@@ -53,14 +53,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 if(mysqli_stmt_num_rows($stmt) == 1){
 
                    $sql = "SELECT id FROM Usuarios WHERE email = ?";
-                   mysqli_stmt_bind_param($stmt,"s", $param_id);
-                   $url = 'http://'. $_SERVER["SERVER_NAME"].'/login/new_pass.php?id='.$sql.'val='.$id;
+                   mysqli_stmt_bind_param($stmt,"s", $param_user);
+                   $url = 'http://'. $_SERVER["SERVER_NAME"].'/new_pass.php?id='.$sql.'val='.$user;
                   
+                   $to = $_POST['email'];
                    $asunto = 'Cambiar contraseña';
                    $cuerpo = "Hola, <br /><br  /> Para continuar con el proceso de cambio de contraseña, da click en 
                    el siguiente <a href='$url'> enlace.</a>";
                    
-                   if(enviarEmail($email,$asunto,$cuerpo)){
+                   $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
+                   $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+                   mail($to, $asunto, $cuerpo, $cabeceras);
+        
+                   if(mail == true){
                        echo "Le hemos enviado un correo para que restablezca su contraseña.";
                        exit;
                    } else {
@@ -81,37 +86,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     } 
 }
-?>
-
-<?php 
-
-    function enviarEmail($email,$asunto,$cuerpo){
-       use PHPMailer\PHPMailer\PHPMailer;
-       use PHPMailer\PHPMailer\Exception;
-       require_once 'PHPMailer/PHPMailerAutoload.php'; 
-     
-       $mail = new PHPMailer(true); 
-       $mail -> isSMTP(); 
-       $mail -> SMTPSecure = 'tls';
-       $mail -> Host = 'smtp.gmail.com';
-       $mail -> Port = '587'; 
-       
-       $mail -> Username = 'chefcitojjj@gmail.com';
-       $mail -> Password = 'chefcito2021';
-       
-       $mail -> setFrom('chefcitojjj@gmail.com', 'Recuperación contraseña');
-       $mail ->addAddress('$email'); 
-       
-       $mail ->Subject = $asunto;
-       $mail ->Body = $cuerpo; 
-       $mail ->IsHTML(true);
-       
-       if($mail->send())
-       return true;
-       else 
-       return false;
-       
- }
 ?>
 
 <!DOCTYPE html>
