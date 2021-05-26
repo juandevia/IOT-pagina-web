@@ -6,6 +6,7 @@ session_start();
 // Se verifica si el usuario esta logeado, si no, se redirecciona al pagina de login
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
+    header("location: data.php");
     exit;
 }
 
@@ -17,30 +18,20 @@ define('DB_NAME', '3387047_chefcito');
 
 // Se conecta con la base de datos, retorna un objeto contenedor con la informacion de la conexión
 $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-<<<<<<< HEAD
+ 
  
 // Si la conexión no es posible con la base de datos
 if($link === false){
     die("ERROR: No se pudo conectar con la base de datos " . mysqli_connect_error());
-}
+} 
+
+
+
 
 ?>
 
 
-
-
-
-=======
->>>>>>> e998eea06af1c59d5454f774a20445e790c7ed95
  
-// Si la conexión no es posible con la base de datos
-if($link === false){
-    die("ERROR: No se pudo conectar con la base de datos " . mysqli_connect_error());
-}
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -75,7 +66,11 @@ if($link === false){
     </header>
 
     <div align = "center">
-        <h1 class="my-5">Hola, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Bienvenido a nuestro sitio.<b></b></h1>
+        <h1 class="my-5">Hola, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Bienvenido a Chefcito.<b></b></h1>
+        <h4>Tu control diario de calorías</h4>
+
+        
+        
     </div>
 
     <div>
@@ -104,6 +99,13 @@ if($link === false){
                 </div>
 
                 <div class="card">
+                    <iframe class="iframee" src="https://thingspeak.com/apps/matlab_visualizations/402728"></iframe>
+                    <h4>Kilocalorías totales diarias</h4>
+                    <p>Este fue tu consumo calórico durante todo el día.</p>
+                </div>
+                
+
+                <div class="card">
                     <iframe class="iframee" src="https://thingspeak.com/apps/matlab_visualizations/402717"></iframe>
                     <h4>Alimentos consumidos en el día</h4>
                     <p>WOW mira la fuente de tus recetas en el día.</p>
@@ -114,12 +116,18 @@ if($link === false){
                     <h4>Kilocalorías consumidas en el día</h4>
                     <p>Este fue tu consumo calórico a lo largo del día.</p>
                 </div>
-
+                
                 <div class="card">
-                    <iframe class="iframee" src="https://thingspeak.com/apps/matlab_visualizations/402728"></iframe>
-                    <h4>Kilocalorías totales diarias</h4>
-                    <p>Este fue tu consumo calórico durante todo el día.</p>
+                    <h1>Información adicional</h1>
+                    <p>Cada persona necesita una cantidad diaría de calorias, esta cantidad depende de tu peso, 
+                    altura, sexo y edad. Existe una medida llamada Tasa metabólica basal (BMR) que te ayuda 
+                    a saber cuantas calorías consumes en estado de reposo. De acuerdo a los datos que registraste, 
+                    te damos este dato </p>
+                    <h1 class="my-5">Conoce tu <a href ="data.php"> BMR </a>
+                    <p> Recuerda que en chefcito te ayudamos a controlar tus calorías,
+                    ¡Ten en cuenta que también es importante asesorarte con un especialista!</p>
                 </div>
+
 
             </div>
     </section>
