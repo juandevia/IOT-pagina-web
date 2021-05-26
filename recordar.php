@@ -51,21 +51,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 mysqli_stmt_store_result($stmt);
                  // Si la tabla de resultados tiene una sola fila, es posible enviar un correo para reestablecer contra
                 if(mysqli_stmt_num_rows($stmt) == 1){
+                 
+                   $new = substr(md5(microtime()), 1, 10);
+                   $mail = $_POST['email'];
+                   $sql = "UPDATE Usuarios SET password = '$new' WHERE email = '$email''";
 
-                   $sql = "SELECT id FROM Usuarios WHERE email = ?";
-                   mysqli_stmt_bind_param($stmt,"s", $param_user);
-                   $url = 'http://'. $_SERVER["SERVER_NAME"].'/new_pass.php?id='.$sql.'val='.$user;
-                  
-                   $to = $_POST['email'];
-                   $asunto = 'Cambiar contraseña';
-                   $cuerpo = "Hola, <br /><br  /> Para continuar con el proceso de cambio de contraseña, da click en 
-                   el siguiente <a href='$url'> enlace.</a>";
+                    if ($link->query($sql) === TRUE) {
+                       echo "usuario modificado correctamente ";
+                    } else {
+                       echo "Error modificando: " . $link->error;
+                    }
+
+                   $asunto = 'Cambio de contraseña';
+                   $from = "From: " . "Chefcito";
+                   $cuerpo = "Hola, tu nueva contraseña es " . $new;
                    
-                   $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
-                   $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-                   mail($to, $asunto, $cuerpo, $cabeceras);
+                   $send = mail($mail, $asunto, $cuerpo, $from);
         
-                   if(mail == true){
+                   if(send == true){
                        echo "Le hemos enviado un correo para que restablezca su contraseña.";
                        exit;
                    } else {
@@ -144,6 +147,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Enviar">
+                <a class="btn btn-link ml-2" href="welcome.php">Cancelar</a>
             </div>
             
             <section class="cuota">
