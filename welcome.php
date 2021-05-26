@@ -17,6 +17,7 @@ define('DB_NAME', '3387047_chefcito');
 
 // Se conecta con la base de datos, retorna un objeto contenedor con la informacion de la conexión
 $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+<<<<<<< HEAD
  
 // Si la conexión no es posible con la base de datos
 if($link === false){
@@ -29,7 +30,17 @@ if($link === false){
 
 
 
+=======
+>>>>>>> e998eea06af1c59d5454f774a20445e790c7ed95
  
+// Si la conexión no es posible con la base de datos
+if($link === false){
+    die("ERROR: No se pudo conectar con la base de datos " . mysqli_connect_error());
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>

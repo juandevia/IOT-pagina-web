@@ -22,7 +22,7 @@ $email_err = "";
 $token ="";
 $url = ""; 
 $asunto = ""; 
-"cuerpo = ""; 
+$cuerpo = ""; 
 
  
 // Se pregunta si ya se envió el formulario en el script html
@@ -51,19 +51,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 mysqli_stmt_store_result($stmt);
                  // Si la tabla de resultados tiene una sola fila, es posible enviar un correo para reestablecer contra
                 if(mysqli_stmt_num_rows($stmt) == 1){
-
                  
-                   $url = 'http://'. $_SERVER["SERVER_NAME"].'/new_pass.php?id='.$sql.'val='.$id;
-                  
-                   $asunto = 'Cambiar contraseña';
-                   $cuerpo = "Hola, <br /><br  /> Para continuar con el proceso de cambio de contraseña, da click en 
-                   el siguiente <a href='$url'> enlace</a>";
+                   $new = substr(md5(microtime()), 1, 10);
+                   $mail = $_POST['email'];
+                   $sql = "UPDATE Usuarios SET password = '$new' WHERE email = '$email''";
+
+                    if ($link->query($sql) === TRUE) {
+                       echo "usuario modificado correctamente ";
+                    } else {
+                       echo "Error modificando: " . $link->error;
+                    }
+
+                   $asunto = 'Cambio de contraseña';
+                   $from = "From: " . "Chefcito";
+                   $cuerpo = "Hola, tu nueva contraseña es " . $new;
                    
-                   if(enviarEmail($email,$asunto,$cuerpo)){
-                       echo "Le hemos enviado un correo para que restablezca su contraseña";
+                   $send = mail($mail, $asunto, $cuerpo, $from);
+        
+                   if(send == true){
+                       echo "Le hemos enviado un correo para que restablezca su contraseña.";
                        exit;
                    } else {
-                       $email_err = "Error al enviar correo";
+                       $email_err = "Error al enviar correo.";
                    }
  
                     
@@ -80,34 +89,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     } 
 }
-?>
-
-<?php 
-    require 'PHPMailer/PHPMailerAutoload.php'; 
-
-    function enviarEmail($email,$asunto,$cuerpo){
-       $mail = new PHPMailer(); 
-       $mail -> isSMTP(); 
-       $mail -> SMTPSecure = 'tls';
-       $mail -> Host = 'smtp.gmail.com';
-       $mail -> Port = '587'; 
-       
-       $mail -> Username = 'chefcitojjj@gmail.com';
-       $mail -> Password = 'chefcito2021';
-       
-       $mail -> setFrom('chefcitojjj@gmail.com', 'Recuperación contraseña');
-       $mail ->addAddress('$email'); 
-       
-       $mail ->Subject = $asunto;
-       $mail ->Body = $cuerpo; 
-       $mail ->IsHTML(true);
-       
-       if($mail->send())
-       return true;
-       else 
-       return false;
-       
- }
 ?>
 
 <!DOCTYPE html>
@@ -166,6 +147,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Enviar">
+                <a class="btn btn-link ml-2" href="welcome.php">Cancelar</a>
             </div>
             
             <section class="cuota">
