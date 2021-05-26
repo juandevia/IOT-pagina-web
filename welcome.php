@@ -8,8 +8,24 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
 }
-?>
+
+// Credenciales para conectar a la base de datos.
+define('DB_SERVER', 'fdb19.125mb.com');
+define('DB_USERNAME', '3387047_chefcito');
+define('DB_PASSWORD', 'iotchefcito2021');
+define('DB_NAME', '3387047_chefcito');
+
+// Se conecta con la base de datos, retorna un objeto contenedor con la informacion de la conexión
+$link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
  
+// Si la conexión no es posible con la base de datos
+if($link === false){
+    die("ERROR: No se pudo conectar con la base de datos " . mysqli_connect_error());
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -44,8 +60,13 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     </header>
 
     <div align = "center">
-        <h1 class="my-5">Hola, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Bienvenido a nuestro sitio.</h1>
+        <h1 class="my-5">Hola, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Bienvenido a nuestro sitio.<b></b></h1>
     </div>
+
+    <div>
+      
+
+    </div> 
     
      <!--Cuota-->
      <section class="cuota2">
