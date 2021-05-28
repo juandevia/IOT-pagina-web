@@ -121,6 +121,7 @@ def ROI_platodecomida(frame):
 # Se crea una funcion para clasificar cada contorno en un proceso aislado
 def modelo_inferencia(roi, out):
     
+    # Cuaderno de google colab para entrenar a Chefcito: https://colab.research.google.com/drive/1fnLDLyTuZ8qJfhXhdqGeaVAyhGiqWA2y?usp=sharing
     # Se importa el modelo de ingerencia y se aloja en memoria sus tensores
     import tflite_runtime.interpreter as tflite
     model = tflite.Interpreter(model_path="chefcito_model.tflite")
