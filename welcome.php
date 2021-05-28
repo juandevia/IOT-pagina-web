@@ -87,32 +87,32 @@ if($link === false){
     <section>
             <div class="container-dash"> 
                 <div class="card">
-                    <iframe class="iframee"  src="https://thingspeak.com/apps/matlab_visualizations/402723"></iframe>
+                    <iframe class="iframee"  src="https://thingspeak.com/apps/matlab_visualizations/412087"></iframe>
                     <h4>Foto de tu última comida</h4>
                     <p>Esta fue última comida, de seguro estuvo deliciosa. </p>
                 </div>
 
                 <div class="card">
-                    <iframe  class="iframee" src="https://thingspeak.com/apps/matlab_visualizations/402669"></iframe>
+                    <iframe  class="iframee" src="https://thingspeak.com/apps/matlab_visualizations/412084"></iframe>
                     <h4>Alimentos consumidos en la última comida</h4>
                     <p>estos fueron tus últimos ingredientes, recuerda que cada vez que cocinas te conviertes en un mejor chef.</p>
                 </div>
 
                 <div class="card">
-                    <iframe class="iframee" src="https://thingspeak.com/apps/matlab_visualizations/402728"></iframe>
+                    <iframe class="iframee" src="https://thingspeak.com/apps/matlab_visualizations/412088"></iframe>
                     <h4>Kilocalorías totales diarias</h4>
                     <p>Este fue tu consumo calórico durante todo el día.</p>
                 </div>
                 
 
                 <div class="card">
-                    <iframe class="iframee" src="https://thingspeak.com/apps/matlab_visualizations/402717"></iframe>
+                    <iframe class="iframee" src="https://thingspeak.com/apps/matlab_visualizations/412086"></iframe>
                     <h4>Alimentos consumidos en el día</h4>
                     <p>WOW mira la fuente de tus recetas en el día.</p>
                 </div>
 
                 <div class="card">
-                    <iframe class="iframee" src="https://thingspeak.com/apps/matlab_visualizations/402665"></iframe>
+                    <iframe class="iframee" src="https://thingspeak.com/apps/matlab_visualizations/412083"></iframe>
                     <h4>Kilocalorías consumidas en el día</h4>
                     <p>Este fue tu consumo calórico a lo largo del día.</p>
                 </div>

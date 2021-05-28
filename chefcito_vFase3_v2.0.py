@@ -184,10 +184,6 @@ while (1):
         channelID = "1363744"
         writeAPIKey = "CELL2W7CXZIZ6DV9"
         topic = "channels/" + channelID + "/publish/" + writeAPIKey
-            
-        # Se solicitan los datos del field1 del canal de ThingSpeak
-        #url = "https://api.thingspeak.com/channels/1363744/fields/1.json?api_key=XL5GE2KFGKFQL003&results=1"
-        #x = requests.get(url)
         
         try:
             # Se debe bajar la bandera a '0' antes de salir del bucle
@@ -257,23 +253,29 @@ while (1):
         # Se ubica la region en interes de la foto; la que encierra a los alimentos
         fmask = ROI_platodecomida(frame)
         img = fmask.copy()
-
+        
+        # Se clusterizan los colores de la imagen a partir del filtrado un piramidal utilizando
+        # la tecnica de clustering "mean shift" (busca el maximo local de una funcion de distribucion)
+        fmask = cv2.cvtColor(fmask, cv2.COLOR_BGR2HSV)
+        fmask = cv2.pyrMeanShiftFiltering(fmask, 20, 30, 2)
+        fmask = cv2.cvtColor(fmask, cv2.COLOR_HSV2BGR)
+        
         # Se umbraliza la ROI con los alimentos para identificar los contornos internos
         gmask = cv2.cvtColor(fmask, cv2.COLOR_BGR2GRAY)
         #cv2.imshow("gris", gmask)
         #cv2.waitKey(0)
         #cv2.destroyAllWindows()
         _, gmask = cv2.threshold(gmask, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
-        #cv2.imshow("gmask1", gmask)
+        #cv2.imshow("umbralizada", gmask)
         #cv2.waitKey(0)
         #cv2.destroyAllWindows()
         gmask = cv2.bitwise_not(gmask)
         gmask = cv2.morphologyEx(gmask, cv2.MORPH_CLOSE, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3,3)), iterations=3)
-        #cv2.imshow("gmask3", gmask)
+        #cv2.imshow("umbralizada filtrada", gmask)
         #cv2.waitKey(0)
         #cv2.destroyAllWindows()
         
-        #cv2.imshow("umbralicacion de alimentos", gmask)        
+        # Se buscan los contornos dentro del plato de comida       
         contours, _ = cv2.findContours(gmask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
         # Se procede a segmentar y clasificar cada contorno:
