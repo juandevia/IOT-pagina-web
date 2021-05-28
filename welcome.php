@@ -121,11 +121,10 @@ if($link === false){
                     <h1>Información adicional</h1>
                     <p>Cada persona necesita una cantidad diaría de calorias, esta cantidad depende de tu peso, 
                     altura, sexo y edad. Existe una medida llamada Tasa metabólica basal (BMR) que te ayuda 
-                    a saber cuantas calorías consumes en estado de reposo. De acuerdo a los datos que registraste, 
-                    te damos este dato </p>
+                    a saber cuantas calorías consumes en estado de reposo. </p>
                     <h1 class="my-5">Conoce tu <a href ="data.php"> BMR </a>
-                    <p> Recuerda que en chefcito te ayudamos a controlar tus calorías,
-                    ¡Ten en cuenta que también es importante asesorarte con un especialista!</p>
+                    <h1> Recuerda que en chefcito te ayudamos a controlar tus calorías,
+                    ¡Ten en cuenta que también es importante asesorarte con un especialista!</h1>
                 </div>
 
 
