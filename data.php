@@ -32,6 +32,8 @@ $weight_err = "";
 $height_err = "";
 $age = ""; 
 $age_err = "";
+$act = ""; 
+$act_err = ""; 
 
 // Se pregunta si ya se envió el formulario en el script html
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -63,25 +65,33 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else{
         $age = trim($_POST["age"]); // Se guarda la altura en la variable 'age'
     }
+    
+    // Se valida si sí se ingresó una actividaf física a partir de la entrada 'act' dada en el metodo 'POST'
+    if(empty(trim($_POST["act"]))){
+        $act_err = "Por favor ingrese su actividad física.";     
+    } else{
+        $act = trim($_POST["act"]); // Se guarda la altura en la variable 'aact'
+    }
 
 
     // Si nunca se necesitaron de las variables auxilaires de error, es porque los datos están bien
-    if(empty($usergender_err) && empty($weight_err) && empty($height_err) && empty($age_err)){
+    if(empty($usergender_err) && empty($weight_err) && empty($height_err) && empty($age_err) && empty($act_err)){
         
         // Se prepara un estado de inserción de datos en la base de datos
-        $sql = "UPDATE Usuarios SET usergender = ?, weight = ?, height = ?, age = ? WHERE id = ?";
+        $sql = "UPDATE Usuarios SET usergender = ?, weight = ?, height = ?, age = ?, act = ? WHERE id = ?";
          
         // Se prepara la ejecucion de el estado de inserción solicitado   
         if($stmt = mysqli_prepare($link, $sql)){
         
             // Se unen los parametros $param_usergender, $param_weight, $param_height a las variables del statement "stmt"
-            mysqli_stmt_bind_param($stmt, "siiii", $param_usergender, $param_weight, $param_height, $param_age, $param_id);
+            mysqli_stmt_bind_param($stmt, "siiiii", $param_usergender, $param_weight, $param_height, $param_age, $param_act, $param_id);
             
             $param_id = $_SESSION["id"];  
             $param_usergender = $usergender; // Se establece el $param_usergender de acuerdo a la variabel $usergender
             $param_weight = $weight; //  el resultado se guarda en $param_weight
             $param_height = $height; //  el resultado se guarda en $param_height
             $param_age = $age; // el resultado se guarda en $param_age
+            $param_act = $act;
 
             // Se intenta ejecutar el estado de inserción solicitado
             if(mysqli_stmt_execute($stmt)){
@@ -90,15 +100,53 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 
                 
                 if($parama_usergender == 'Femenino'){
-                   $BMR = ((10 * $param_weight) + (6.25 * $param_height) - (5 * $param_age) + 5) * 1.2;  
+                
+                   if($param_act == "1"){
+                      $BMR = ((10 * $param_weight) + (6.25 * $param_height) - (5 * $param_age) + 5) * 1.2;  
+                   }
+                   
+                   if($param_act == "2"){
+                      $BMR = ((10 * $param_weight) + (6.25 * $param_height) - (5 * $param_age) + 5) * 1.375;  
+                   }
+                   
+                   if($param_act == "3"){
+                      $BMR = ((10 * $param_weight) + (6.25 * $param_height) - (5 * $param_age) + 5) * 1.55;  
+                   }
+                   if($param_act == "4"){
+                      $BMR = ((10 * $param_weight) + (6.25 * $param_height) - (5 * $param_age) + 5) * 1.72;  
+                   }
+                  
+                   if($param_act == "5"){
+                      $BMR = ((10 * $param_weight) + (6.25 * $param_height) - (5 * $param_age) + 5) * 1.9;  
+                   }
+                
+                
                 } else{
-                   $BMR = ((10 * $param_weight) + (6.25 * $param_height) - (5 * $param_age) -161) * 1.2;
-                }
+                
+                   if($param_act == "1"){
+                      $BMR = ((10 * $param_weight) + (6.25 * $param_height) - (5 * $param_age) -161) * 1.2;
+                   }
+                   
+                   if($param_act == "2"){
+                      $BMR = ((10 * $param_weight) + (6.25 * $param_height) - (5 * $param_age) -161) * 1.375;
+                   }
+                   
+                   if($param_act == "3"){
+                      $BMR = ((10 * $param_weight) + (6.25 * $param_height) - (5 * $param_age) -161) * 1.55;
+                   }
+                   
+                   if($param_act == "4"){
+                      $BMR = ((10 * $param_weight) + (6.25 * $param_height) - (5 * $param_age) -161) * 1.72;
+                   }
+                   
+                   if($param_act == "5"){
+                      $BMR = ((10 * $param_weight) + (6.25 * $param_height) - (5 * $param_age) -161) * 1.9;
+                   }
+                   
+                 }
  
  
-                
-                
-                
+                   
             } else{
                 // No se pudo ejecutar el estado de inserción
                 echo "Ahhhh! Errores. Por favor intente mas tarde.";
@@ -165,7 +213,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <!-- Se crea el formulario para ser enviado a al codigo php -->
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
-                <label>Género</label>
+                <label>Sexo</label>
                     <select name="usergender">
                         <option value=""></option>
                         <option value="Masculino">Masculino</option>
@@ -423,7 +471,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
                         <option value="23">23</option>
                         <option value="24">24</option>
-                        <option value="26">25</option>
+                        <option value="25">25</option>
+                        <option value="25">26</option>
                         <option value="27">27</option>
                         <option value="28">28</option>
                         <option value="29">29</option>
@@ -515,11 +564,34 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <name="age" class="form-control <?php echo (!empty($age_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $age; ?>">
                 <span class="invalid-feedback"><?php echo $age_err; ?></span>
             </div>
+
+            <div class="form-group">
+                <label>Actividad física</label>
+
+                <select name="act">
+                        <option value=""></option>
+                        <option value="1">Poco o ninguno</option>
+                        <option value="2">Ligero</option>
+                        <option value="3">Moderado</option>
+                        <option value="4">Diario</option>
+                        <option value="5">Dos veces al día</option>         
+                  </select>
+
+
+                <name="act" class="form-control <?php echo (!empty($act_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $act; ?>">
+                <span class="invalid-feedback"><?php echo $act_err; ?></span>
+            </div>
             
-            <div> 
-                <h1 class="my-5">Tu BMR es: <b><?php echo htmlspecialchars($BMR); ?></b></h1>
+            
+            
+            
+             <div class="container-dash"> 
+                <div class="card">
+                    <h1 class="my-5">BMR:<b><?php echo htmlspecialchars($BMR); ?></b></h1>
+                    <p>Este es el mínimo de calorías que necesitas para mantener tu cuerpo sano, recuerda que esto es estando en reposo, si realizas actividad física, este valor es más alto</p>
+                </div>
                 
-            </div> 
+             </div>
 
             
             
